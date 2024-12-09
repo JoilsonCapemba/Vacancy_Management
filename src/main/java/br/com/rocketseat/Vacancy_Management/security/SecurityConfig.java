@@ -33,6 +33,9 @@ public class SecurityConfig {
                             .requestMatchers(HttpMethod.POST,"/candidates/create").permitAll()
                             .requestMatchers(HttpMethod.POST,"/companies/auth").permitAll()
                             .requestMatchers(HttpMethod.POST,"/candidates/auth").permitAll()
+                            .requestMatchers("/swagger-ui/**").permitAll()
+                            .requestMatchers("/v3/api-docs/**").permitAll()
+                            .requestMatchers("/swagger-resources/**").permitAll()
                             .anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, BasicAuthenticationFilter.class)

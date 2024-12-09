@@ -22,4 +22,8 @@ public class VacancyService {
     public Optional<List<Vacancy>> findByCompanyId(UUID companyId){
         return this.vacancyRepository.findByCompanyId(companyId);
     }
+
+    public List<Vacancy> listVacanciesByFilter(String filter){
+        return this.vacancyRepository.findByDescriptionContainingIgnoreCase(filter);
+    }
 }
