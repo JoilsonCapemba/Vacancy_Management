@@ -1,11 +1,10 @@
 package br.com.rocketseat.Vacancy_Management.modules.candidate.dto;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
-public record CreateCandidateDTO(
+public record CandidateCreateRequestDTO(
         @NotNull
         String name,
         @NotNull

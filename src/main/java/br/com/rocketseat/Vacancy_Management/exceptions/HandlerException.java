@@ -4,6 +4,7 @@ import br.com.rocketseat.Vacancy_Management.exceptions.dto.ErrorMessageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -29,6 +30,6 @@ public class HandlerException {
                     listError.add(new ErrorMessageDTO(message, err.getField()));
                 }
         );
-        return ResponseEntity.ok(listError);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(listError);
     }
 }
