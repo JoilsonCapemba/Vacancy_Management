@@ -1,8 +1,12 @@
 package br.com.rocketseat.Vacancy_Management.modules.candidate;
 
 import br.com.rocketseat.Vacancy_Management.exceptions.UserFoudException;
+import br.com.rocketseat.Vacancy_Management.exceptions.UserNotFoundException;
+import br.com.rocketseat.Vacancy_Management.exceptions.VacancyNotFoundException;
 import br.com.rocketseat.Vacancy_Management.modules.candidate.dto.CandidateResponseDTO;
 import br.com.rocketseat.Vacancy_Management.modules.candidate.dto.AuthCandidateForm;
+import br.com.rocketseat.Vacancy_Management.modules.vacancy.VacancyRepository;
+import br.com.rocketseat.Vacancy_Management.modules.vacancy.VacancyService;
 import br.com.rocketseat.Vacancy_Management.security.TokenCandidateService;
 import br.com.rocketseat.Vacancy_Management.security.dto.TokenDTO;
 import br.com.rocketseat.Vacancy_Management.modules.candidate.dto.CandidateCreateRequestDTO;
@@ -19,6 +23,9 @@ import java.util.UUID;
 public class CandidateServices {
     @Autowired
     CandidateRepository candidateRepository;
+
+    @Autowired
+    VacancyRepository vacancyRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -53,6 +60,7 @@ public class CandidateServices {
          return token;
     }
 
+
     public CandidateResponseDTO profile(UUID candidateId){
         var candidate = this.candidateRepository.findById(candidateId)
                 .orElseThrow(()->{
@@ -61,5 +69,19 @@ public class CandidateServices {
         return new CandidateResponseDTO(candidate.getName(), candidate.getUserName(), candidate.getEmail(), candidate.getDescription(), candidate.getId());
     }
 
+
+    public void applyVacancy(UUID candidateId, UUID vacancyId){
+
+        var candidate = this.candidateRepository.findById(candidateId).orElseThrow(()->{
+            throw new UserNotFoundException();
+        });
+
+        var vacancy = this.vacancyRepository.findById(vacancyId).orElseThrow(()->{
+            throw new VacancyNotFoundException();
+        });
+
+
+
+    }
 
 }
